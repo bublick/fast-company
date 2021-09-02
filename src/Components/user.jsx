@@ -1,4 +1,7 @@
 import React from "react";
+import Bookmark from "./bookmark";
+import Qualities from "./qualities";
+
 const User = ({
   _id,
   name,
@@ -7,27 +10,26 @@ const User = ({
   completedMeetings,
   rate,
   onRemove,
+  bookmark,
+  onToogleBookmark,
 }) => {
   return (
     <>
       <tr key={_id}>
         <td>{name}</td>
         <td>
-          <ul className="p-0">
-            {qualities.map((quality) => {
-              let qualityClass = "badge m-1 bg-";
-              qualityClass += quality.color;
-              return (
-                <li className={qualityClass} key={quality._id}>
-                  {quality.name}
-                </li>
-              );
-            })}
-          </ul>
+          <Qualities qualities={qualities} />
         </td>
         <td>{profession.name}</td>
         <td>{completedMeetings}</td>
         <td>{rate} / 5</td>
+        <td>
+          <Bookmark
+            status={bookmark}
+            onClick={() => onToogleBookmark(_id)}
+            className="btn"
+          />
+        </td>
         <td>
           <button className="btn btn-danger" onClick={() => onRemove(_id)}>
             delete

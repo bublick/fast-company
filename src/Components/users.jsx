@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import api from "../api";
+import React from "react";
 import User from "./user";
 
-const Users = ({ users, onRemove }) => {
+const Users = ({ users, onRemove, onToogleBookmark }) => {
   return (
     <>
-      {users.length == false ? (
+      {users.length === 0 ? (
         ""
       ) : (
         <>
@@ -17,12 +16,20 @@ const Users = ({ users, onRemove }) => {
                 <th scope="col">Профессия</th>
                 <th scope="col">Встретились, раз</th>
                 <th scope="col">Оценка</th>
+                <th scope="col">Избранное</th>
                 <th scope="col">Действие</th>
               </tr>
             </thead>
             <tbody>
               {users.map((user) => {
-                return <User key={user._id} onRemove={onRemove} {...user} />;
+                return (
+                  <User
+                    key={user._id}
+                    onRemove={onRemove}
+                    onToogleBookmark={onToogleBookmark}
+                    {...user}
+                  />
+                );
               })}
             </tbody>
           </table>

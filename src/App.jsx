@@ -9,11 +9,26 @@ const App = () => {
   const handleUserRemove = (id) => {
     setUsers(users.filter((user) => user._id !== id));
   };
+  const handleAddToFavorite = (id) => {
+    setUsers(
+      users.filter((user) => {
+        if (user._id === id) {
+          user.bookmark = !user.bookmark;
+          return user;
+        }
+        return user;
+      })
+    );
+  };
 
   return (
     <>
       <SearchStatus length={users.length} />
-      <Users users={users} onRemove={handleUserRemove} />
+      <Users
+        users={users}
+        onRemove={handleUserRemove}
+        onToogleBookmark={handleAddToFavorite}
+      />
     </>
   );
 };
