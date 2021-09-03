@@ -1,7 +1,11 @@
 import React from "react";
+import Pagination from "./pagination";
 import User from "./user";
 
 const Users = ({ users, onRemove, onToogleBookmark }) => {
+  const handlePageClick = (page) => {
+    console.log(page);
+  };
   return (
     <>
       {users.length === 0 ? (
@@ -33,6 +37,11 @@ const Users = ({ users, onRemove, onToogleBookmark }) => {
               })}
             </tbody>
           </table>
+          <Pagination
+            userCount={users.length}
+            pageSize={4}
+            onPageClick={handlePageClick}
+          />
         </>
       )}
     </>
