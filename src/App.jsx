@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Users from "./Components/users";
 
-import api from "./api";
+import api from "./API";
 import SearchStatus from "./Components/searchStatus";
 
 const App = () => {

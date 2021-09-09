@@ -1,11 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
+import { paginate } from "../utils/paginate";
 import Pagination from "./pagination";
 import User from "./user";
 
-const Users = ({ users, onRemove, onToogleBookmark }) => {
+const Users = ({ users: allUsers, onRemove, onToogleBookmark }) => {
+  const [currentPage, setPage] = useState(1)
+  const usersPerPage = 4
   const handlePageClick = (page) => {
     console.log(page);
+    setPage(page)
   };
+  const users = paginate(allUsers, currentPage, usersPerPage)
   return (
     <>
       {users.length === 0 ? (
@@ -38,8 +43,8 @@ const Users = ({ users, onRemove, onToogleBookmark }) => {
             </tbody>
           </table>
           <Pagination
-            userCount={users.length}
-            pageSize={4}
+            userCount={allUsers.length}
+            usersPerPage={usersPerPage}
             onPageClick={handlePageClick}
           />
         </>
