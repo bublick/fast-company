@@ -3,56 +3,38 @@ import Bookmark from "./bookmark";
 import Qualities from "./qualities";
 import PropTypes from "prop-types";
 
-const User = ({
-    _id,
-    name,
-    qualities,
-    profession,
-    completedMeetings,
-    rate,
-    onRemove,
-    bookmark,
-    onToogleBookmark
-}) => {
+const User = ({ user, onRemove, onToogleBookmark }) => {
     return (
-        <>
-            <tr key={_id}>
-                <td>{name}</td>
-                <td>
-                    <Qualities qualities={qualities} />
-                </td>
-                <td>{profession.name}</td>
-                <td>{completedMeetings}</td>
-                <td>{rate} / 5</td>
-                <td>
-                    <Bookmark
-                        status={bookmark}
-                        onClick={() => onToogleBookmark(_id)}
-                        className="btn"
-                    />
-                </td>
-                <td>
-                    <button
-                        className="btn btn-danger"
-                        onClick={() => onRemove(_id)}
-                    >
-                        delete
-                    </button>
-                </td>
-            </tr>
-        </>
+        <tr key={user._id}>
+            <td>{user.name}</td>
+            <td>
+                <Qualities qualities={user.qualities} />
+            </td>
+            <td>{user.profession?.name}</td>
+            <td>{user.completedMeetings}</td>
+            <td>{user.rate} / 5</td>
+            <td>
+                <Bookmark
+                    status={user.bookmark}
+                    onClick={() => onToogleBookmark(user._id)}
+                    className="btn"
+                />
+            </td>
+            <td>
+                <button
+                    className="btn btn-danger"
+                    onClick={() => onRemove(user._id)}
+                >
+                    delete
+                </button>
+            </td>
+        </tr>
     );
 };
 
 User.propTypes = {
-    _id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    qualities: PropTypes.array.isRequired,
-    profession: PropTypes.string.isRequired,
-    completedMeetings: PropTypes.number.isRequired,
-    rate: PropTypes.number.isRequired,
+    user: PropTypes.object.isRequired,
     onRemove: PropTypes.func.isRequired,
-    bookmark: PropTypes.bool.isRequired,
     onToogleBookmark: PropTypes.func.isRequired
 };
 export default User;

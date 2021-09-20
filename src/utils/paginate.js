@@ -1,6 +1,6 @@
-
+import _ from "lodash";
 export function paginate(allUsers, currentPage, usersPerPage) {
     const startIndex = (currentPage - 1) * usersPerPage;
 
-    return allUsers.slice(startIndex, startIndex + usersPerPage);
+    return _(allUsers).slice(startIndex).take(usersPerPage).value();
 }
