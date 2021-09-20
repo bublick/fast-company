@@ -8,34 +8,37 @@ import SearchStatus from "./searchStatus";
 import PropTypes from "prop-types";
 
 const Users = ({ users: allUsers, onRemove, onToogleBookmark }) => {
-    const [currentPage, setPage] = useState(1);
-    const [professions, setProfessions] = useState(api.professions.fetchAll());
+    const [currentPage, setCurrentPage] = useState(1);
+    const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const usersPerPage = 4;
 
     useEffect(() => {
-        api.professions.fetchAll().then((data) => setProfessions(data));
+        api.professions.fetchAll().then((data) => {
+            setProfessions(data);
+        });
     }, []);
 
     useEffect(() => {
-        setPage(1);
+        setCurrentPage(1);
     }, [selectedProf]);
 
     const handleProfessionSelect = (item) => {
         setSelectedProf(item);
     };
     const handlePageClick = (page) => {
-        setPage(page);
+        setCurrentPage(page);
     };
 
     const filteredUsers = selectedProf
-        ? allUsers.filter((user) => user.profession === selectedProf)
+        ? allUsers.filter((user) => user.profession.name === selectedProf.name)
         : allUsers;
+
     const count = filteredUsers.length;
     const users = paginate(filteredUsers, currentPage, usersPerPage);
     const clearFilter = () => {
         setSelectedProf();
-        setPage(1);
+        setCurrentPage(1);
     };
 
     return (
@@ -78,7 +81,7 @@ const Users = ({ users: allUsers, onRemove, onToogleBookmark }) => {
                                             key={user._id}
                                             onRemove={onRemove}
                                             onToogleBookmark={onToogleBookmark}
-                                            {...user}
+                                            user={user}
                                         />
                                     );
                                 })}
@@ -101,7 +104,6 @@ const Users = ({ users: allUsers, onRemove, onToogleBookmark }) => {
 
 Users.propTypes = {
     users: PropTypes.array.isRequired,
-    // allUsers: PropTypes.array.isRequired,
     onRemove: PropTypes.func.isRequired,
     onToogleBookmark: PropTypes.func.isRequired
 };
