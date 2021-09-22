@@ -29,6 +29,9 @@ const Users = ({ users: allUsers, onRemove, onToogleBookmark }) => {
     const handlePageClick = (page) => {
         setCurrentPage(page);
     };
+    const handleSort = (item) => {
+        console.log(item);
+    };
 
     const filteredUsers = selectedProf
         ? allUsers.filter((user) => user.profession.name === selectedProf.name)
@@ -66,6 +69,7 @@ const Users = ({ users: allUsers, onRemove, onToogleBookmark }) => {
                             users={users}
                             onRemove={onRemove}
                             onToogleBookmark={onToogleBookmark}
+                            onSort={handleSort}
                         />
 
                         <div className="d-flex justify-content-center">
