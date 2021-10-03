@@ -6,11 +6,13 @@ import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
 import UserTable from "./usersTable";
 import PropTypes from "prop-types";
+import _ from "lodash";
 
 const Users = ({ users: allUsers, onRemove, onToogleBookmark }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
+    const [sortBy, setSortBy] = useState({ iter: "name", order: "ASC" });
     const usersPerPage = 4;
 
     useEffect(() => {
@@ -30,7 +32,7 @@ const Users = ({ users: allUsers, onRemove, onToogleBookmark }) => {
         setCurrentPage(page);
     };
     const handleSort = (item) => {
-        console.log(item);
+        setSortBy(item);
     };
 
     const filteredUsers = selectedProf
@@ -38,7 +40,8 @@ const Users = ({ users: allUsers, onRemove, onToogleBookmark }) => {
         : allUsers;
 
     const count = filteredUsers.length;
-    const users = paginate(filteredUsers, currentPage, usersPerPage);
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
+    const users = paginate(sortedUsers, currentPage, usersPerPage);
     const clearFilter = () => {
         setSelectedProf();
         setCurrentPage(1);
@@ -70,6 +73,7 @@ const Users = ({ users: allUsers, onRemove, onToogleBookmark }) => {
                             onRemove={onRemove}
                             onToogleBookmark={onToogleBookmark}
                             onSort={handleSort}
+                            selectedSort={sortBy}
                         />
 
                         <div className="d-flex justify-content-center">
