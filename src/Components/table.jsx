@@ -1,6 +1,6 @@
 import React from "react";
 import TableBody from "./tableBody";
-import TableHeader from "./tableHeader";
+// import TableHeader from "./tableHeader";
 import PropTypes from "prop-types";
 
 const Table = (onSort, selectedSort, columns, data, children) => {
@@ -8,7 +8,7 @@ const Table = (onSort, selectedSort, columns, data, children) => {
         <table className="table">
             {children || (
                 <>
-                    <TableHeader {...{ onSort, selectedSort, columns }} />
+                    {/* <TableHeader {...{ onSort, selectedSort, columns }} /> */}
                     <TableBody {...{ columns, data }} />
                 </>
             )}
