@@ -37,4 +37,5 @@ User.propTypes = {
     onRemove: PropTypes.func.isRequired,
     onToogleBookmark: PropTypes.func.isRequired
 };
+
 export default User;
