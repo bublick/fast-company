@@ -3,7 +3,7 @@ import TableBody from "./tableBody";
 // import TableHeader from "./tableHeader";
 import PropTypes from "prop-types";
 
-const Table = (onSort, selectedSort, columns, data, children) => {
+const Table = ({ onSort, selectedSort, columns, data, children }) => {
     return (
         <table className="table">
             {children || (
