@@ -1,39 +1,52 @@
-import React from "react";
-import Bookmark from "./bookmark";
-import Qualities from "./qualities";
+import { React, useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import PropTypes from "prop-types";
+import api from "../API";
+import Quality from "./quality";
 
-const User = ({ user, onRemove, onToogleBookmark }) => {
+const User = ({ id }) => {
+    const history = useHistory();
+
+    const [user, setUser] = useState();
+
+    useEffect(() => {
+        api.users.getUserById(id).then((data) => setUser(data));
+    }, []);
+    if (user) {
+        console.log(user);
+        console.log(user.profession);
+    }
+
+    const handleMoveBack = () => {
+        history.push("/users");
+    };
+
     return (
-        <tr key={user._id}>
-            <td>{user.name}</td>
-            <td>
-                <Qualities qualities={user.qualities} />
-            </td>
-            <td>{user.profession?.name}</td>
-            <td>{user.completedMeetings}</td>
-            <td>{user.rate} / 5</td>
-            <td>
-                <Bookmark
-                    status={user.bookmark}
-                    onClick={() => onToogleBookmark(user._id)}
-                    className="btn"
-                />
-            </td>
-            <td>
-                <button
-                    className="btn btn-danger"
-                    onClick={() => onRemove(user._id)}
-                >
-                    delete
-                </button>
-            </td>
-        </tr>
+        <div className="container">
+            {user ? (
+                <div>
+                    <h1>{user.name}</h1>
+                    <h2>Профессия: {user.profession.name}</h2>
+
+                    <div>
+                        {user.qualities.map((badge) => (
+                            <Quality key={badge._id} {...badge} />
+                        ))}
+                    </div>
+                    <div>completedMeetings: {user.completedMeetings}</div>
+                    <div>Rate {user.rate}</div>
+
+                    <button onClick={handleMoveBack}>Все пользователи</button>
+                </div>
+            ) : (
+                <h2>Loading</h2>
+            )}
+        </div>
     );
 };
 
 User.propTypes = {
-    user: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
     onRemove: PropTypes.func.isRequired,
     onToogleBookmark: PropTypes.func.isRequired
 };

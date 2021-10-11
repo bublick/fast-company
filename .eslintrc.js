@@ -20,6 +20,7 @@ module.exports = {
             "error",
             { anonymous: "always", named: "never" }
         ],
+        "multiline-ternary": "always",
         quotes: ["error", "double", { allowTemplateLiterals: true }]
     }
 };

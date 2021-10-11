@@ -21,7 +21,7 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
     return (
         <thead>
             <tr>
-                {Object.keys(columns).map((column) => (
+                {Object.keys(columns).map((column) => {
                     return (
                         <th
                             key={column}
@@ -44,7 +44,7 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                                 iconCaretDown}
                         </th>
                     );
-                ))}
+                })}
             </tr>
         </thead>
     );
