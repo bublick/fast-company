@@ -7,6 +7,7 @@
         "@testing-library/react": "^11.1.0",
         "@testing-library/user-event": "^12.1.10",
         "bootstrap": "5.1",
+        "bootstrap-icons": "^1.6.1",
         "lodash": "^4.17.15",
         "prop-types": "^15.7.2",
         "react": "^17.0.2",
@@ -46,6 +47,7 @@
         "eslint-plugin-import": "^2.24.2",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^5.1.0",
-        "eslint-plugin-react": "^7.25.1"
+        "eslint-plugin-react": "^7.25.1",
+        "eslint-plugin-ternary": "^2.0.0"
     }
 }
