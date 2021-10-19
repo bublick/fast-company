@@ -4,6 +4,7 @@ import Pagination from "./pagination";
 import api from "../API";
 import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
+import SearchBar from "./searchBar";
 import UserTable from "./usersTable";
 import PropTypes from "prop-types";
 import _ from "lodash";
@@ -15,6 +16,7 @@ const Users = () => {
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "ASC" });
+    const [searchWord, setSearchWord] = useState("");
     const usersPerPage = 4;
 
     useEffect(() => {
@@ -47,6 +49,7 @@ const Users = () => {
 
         const handleProfessionSelect = (item) => {
             setSelectedProf(item);
+            setSearchWord("");
         };
         const handlePageClick = (page) => {
             setCurrentPage(page);
@@ -55,9 +58,21 @@ const Users = () => {
             setSortBy(item);
         };
 
-        const filteredUsers = selectedProf
+        const handleType = ({ target }) => {
+            console.log(target.value);
+            setSearchWord(target.value);
+            console.log(searchWord);
+        };
+
+        let filteredUsers = selectedProf
             ? users.filter((user) => user.profession.name === selectedProf.name)
             : users;
+
+        filteredUsers = searchWord
+            ? filteredUsers.filter((user) =>
+                  user.name.toLowerCase().includes(searchWord.toLowerCase())
+              )
+            : filteredUsers;
 
         const count = filteredUsers.length;
         const sortedUsers = _.orderBy(
@@ -69,6 +84,7 @@ const Users = () => {
         const clearFilter = () => {
             setSelectedProf();
             setCurrentPage(1);
+            setSearchWord("");
         };
 
         return (
@@ -90,6 +106,12 @@ const Users = () => {
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <SearchBar
+                        onType={handleType}
+                        name="search"
+                        value={searchWord}
+                    />
+
                     {count > 0 && (
                         <>
                             <UserTable

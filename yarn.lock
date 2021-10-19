@@ -2907,6 +2907,11 @@
   "resolved" "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz"
   "version" "1.0.0"
 
+"bootstrap-icons@^1.6.1":
+  "integrity" "sha512-MNpF89+njCdVJePDRbCd2DrUusqIyNsPlBrdKqBEXAvFZpwb+Gc8k2VlyF2ueiDQn1PoeTSg9UqQNgx8tGqHAA=="
+  "resolved" "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.6.1.tgz"
+  "version" "1.6.1"
+
 "bootstrap@5.1":
   "integrity" "sha512-bs74WNI9BgBo3cEovmdMHikSKoXnDgA6VQjJ7TyTotU6L7d41ZyCEEelPwkYEzsG/Zjv3ie9IE3EMAje0W9Xew=="
   "resolved" "https://registry.npmjs.org/bootstrap/-/bootstrap-5.1.0.tgz"
@@ -4731,6 +4736,11 @@
     "resolve" "^2.0.0-next.3"
     "string.prototype.matchall" "^4.0.5"
 
+"eslint-plugin-ternary@^2.0.0":
+  "integrity" "sha512-Euzg/k/bR5aUNHzwx4pdRtSLW66FAaE7pweH4Vb25CsmWoO3x+++YnY3r6etPe/nYeIqfvFheVJ0wxo8RaLOug=="
+  "resolved" "https://registry.npmjs.org/eslint-plugin-ternary/-/eslint-plugin-ternary-2.0.0.tgz"
+  "version" "2.0.0"
+
 "eslint-plugin-testing-library@^3.9.0", "eslint-plugin-testing-library@^3.9.2":
   "integrity" "sha512-nQIFe2muIFv2oR2zIuXE4vTbcFNx8hZKRzgHZqJg8rfopIWwoTwtlbCCNELT/jXzVe1uZF68ALGYoDXjLczKiQ=="
   "resolved" "https://registry.npmjs.org/eslint-plugin-testing-library/-/eslint-plugin-testing-library-3.10.1.tgz"
@@ -4782,7 +4792,7 @@
     "micromatch" "^4.0.2"
     "schema-utils" "^3.0.0"
 
-"eslint@*", "eslint@^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0", "eslint@^3 || ^4 || ^5 || ^6 || ^7", "eslint@^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0", "eslint@^5 || ^6 || ^7", "eslint@^5.0.0 || ^6.0.0 || ^7.0.0", "eslint@^7.0.0", "eslint@^7.1.0", "eslint@^7.11.0", "eslint@^7.12.1", "eslint@^7.32.0", "eslint@^7.5.0", "eslint@>= 4.12.1", "eslint@>=4.19.1", "eslint@>=5", "eslint@>=5.16.0":
+"eslint@*", "eslint@^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0", "eslint@^3 || ^4 || ^5 || ^6 || ^7", "eslint@^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0", "eslint@^5 || ^6 || ^7", "eslint@^5.0.0 || ^6.0.0 || ^7.0.0", "eslint@^7.0.0", "eslint@^7.1.0", "eslint@^7.11.0", "eslint@^7.12.1", "eslint@^7.32.0", "eslint@^7.5.0", "eslint@>= 4.12.1", "eslint@>=0.8.0", "eslint@>=4.19.1", "eslint@>=5", "eslint@>=5.16.0":
   "integrity" "sha512-VHZ8gX+EDfz+97jGcgyGCyRia/dPOd6Xh9yPv8Bl1+SoaIwD+a/vlrOmGRUyOYu7MwUhc7CxqeaDZU13S4+EpA=="
   "resolved" "https://registry.npmjs.org/eslint/-/eslint-7.32.0.tgz"
   "version" "7.32.0"
