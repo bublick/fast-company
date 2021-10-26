@@ -1,8 +1,8 @@
 import { React, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
-import api from "../API";
-import Quality from "./quality";
+import api from "../../../API";
+import Quality from "../../ui/qualities/quality";
 
 const User = ({ id }) => {
     const history = useHistory();

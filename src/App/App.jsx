@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import NavBar from "../Components/navBar";
+
+import NavBar from "../Components/ui/navBar";
 import HomePage from "../Layouts/main";
 import LoginPage from "../Layouts/login";
 import UsersPage from "../Layouts/users";
