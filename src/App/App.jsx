@@ -18,7 +18,7 @@ const App = () => {
                     render={(props) => <LoginPage {...props} />}
                 />
                 <Route
-                    path="/users/:userId?"
+                    path="/users/:userId?/:edit?"
                     render={(props) => <UsersPage {...props} />}
                 />
 

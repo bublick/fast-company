@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import PropTypes from "prop-types";
-import { iconEye, iconEyeSlash } from "../../utils/icons";
+import { iconEye, iconEyeSlash } from "../../../utils/icons";
 
 const TextField = ({
     label,

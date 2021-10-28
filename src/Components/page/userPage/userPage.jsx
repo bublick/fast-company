@@ -4,14 +4,18 @@ import PropTypes from "prop-types";
 import api from "../../../API";
 import Quality from "../../ui/qualities/quality";
 
-const User = ({ id }) => {
+const User = ({ userId }) => {
     const history = useHistory();
 
     const [user, setUser] = useState();
 
     useEffect(() => {
-        api.users.getUserById(id).then((data) => setUser(data));
-    }, []);
+        console.log(userId);
+        api.users.getById(userId).then((data) => {
+            setUser(data);
+        });
+    });
+
     if (user) {
         console.log(user);
         console.log(user.profession);
@@ -19,6 +23,10 @@ const User = ({ id }) => {
 
     const handleMoveBack = () => {
         history.push("/users");
+    };
+
+    const editUser = () => {
+        history.push(`/users/${userId}/edit`);
     };
 
     return (
@@ -36,7 +44,17 @@ const User = ({ id }) => {
                     <div>completedMeetings: {user.completedMeetings}</div>
                     <div>Rate {user.rate}</div>
 
-                    <button onClick={handleMoveBack}>Все пользователи</button>
+                    <div className="mt-4 d-grid gap-2 d-sm-flex">
+                        <button
+                            onClick={handleMoveBack}
+                            className="btn btn-secondary"
+                        >
+                            Все пользователи
+                        </button>
+                        <button onClick={editUser} className="btn btn-primary">
+                            Редактировать
+                        </button>
+                    </div>
                 </div>
             ) : (
                 <h2>Loading</h2>
@@ -46,7 +64,7 @@ const User = ({ id }) => {
 };
 
 User.propTypes = {
-    id: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
     onRemove: PropTypes.func.isRequired,
     onToogleBookmark: PropTypes.func.isRequired
 };

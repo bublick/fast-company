@@ -10,7 +10,8 @@ const SelectField = ({
     error
 }) => {
     const handleChange = ({ target }) => {
-        onChange({ name: [target.name], value: target.value });
+        const findObj = optionsArray.find((p) => p.value === target.value);
+        onChange({ name: target.name, value: findObj || target.value });
     };
 
     const getInputClasses = () => {
@@ -20,7 +21,7 @@ const SelectField = ({
     const optionsArray =
         !Array.isArray(options) && typeof options === "object"
             ? Object.keys(options).map((optionName) => ({
-                  name: optionName,
+                  name: options[optionName].name,
                   value: options[optionName]._id
               }))
             : options;
