@@ -30,6 +30,7 @@ const UserEditPage = ({ userId }) => {
         <div className="container">
             <h1>Редактивнование пользователя {user.name}</h1>
             <UserEditForm
+                userId={userId}
                 email={user.email}
                 name={user.name}
                 profession={user.profession}

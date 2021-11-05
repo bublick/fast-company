@@ -84,7 +84,7 @@ const RegisterForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
-        if (isValid) return;
+        if (!isValid) return;
         console.log(data);
     };
 
@@ -108,10 +108,11 @@ const RegisterForm = () => {
 
             <SelectField
                 label={"Выберете вашу профессию"}
-                value={data.profession}
+                value={data.profession.value}
                 onChange={handleChange}
                 defaultOption={"Выберите.."}
                 options={professions}
+                name="profession"
                 error={errors.profession}
             />
 

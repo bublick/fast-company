@@ -5,8 +5,10 @@ import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
 import { validator } from "../../utils/validator";
+import { useHistory } from "react-router";
 
 const UserEditForm = ({
+    userId,
     email,
     name,
     profession,
@@ -16,6 +18,8 @@ const UserEditForm = ({
     allQualities,
     onSubmit
 }) => {
+    const history = useHistory();
+
     const [data, setData] = useState({
         email: email,
         name: name,
@@ -39,6 +43,11 @@ const UserEditForm = ({
         onSubmit(data);
         // console.log(data);
     };
+
+    const handleMoveBack = () => {
+        history.push(`/users/${userId}`);
+    };
+
     const validatorConfig = {
         name: {
             isRequired: { message: "Имя обязателено" }
@@ -116,10 +125,17 @@ const UserEditForm = ({
 
                 <button
                     type="submit"
-                    className="btn btn-primary w-100 mx-auto"
+                    className="btn btn-primary w-100 mx-auto mb-2"
                     disabled={!isValid}
                 >
                     Отправить
+                </button>
+
+                <button
+                    className="btn btn-secondary mx-auto"
+                    onClick={handleMoveBack}
+                >
+                    Вернутся
                 </button>
             </form>
         </>
@@ -127,6 +143,7 @@ const UserEditForm = ({
 };
 
 UserEditForm.propTypes = {
+    userId: PropTypes.string,
     email: PropTypes.string,
     name: PropTypes.string,
     profession: PropTypes.array,

@@ -2,7 +2,10 @@ import { React, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
 import api from "../../../API";
-import Quality from "../../ui/qualities/quality";
+import UserCard from "./cards/userCard";
+import QualitiesCard from "./cards/qualitiesCard";
+import MeetingsCard from "./cards/meetingsCard";
+import CommentList from "../../common/comments/commentList";
 
 const User = ({ userId }) => {
     const history = useHistory();
@@ -10,50 +13,36 @@ const User = ({ userId }) => {
     const [user, setUser] = useState();
 
     useEffect(() => {
-        console.log(userId);
         api.users.getById(userId).then((data) => {
             setUser(data);
         });
     });
 
-    if (user) {
-        console.log(user);
-        console.log(user.profession);
-    }
+    // const handleMoveBack = () => {
+    //     history.push("/users");
+    // };
 
-    const handleMoveBack = () => {
-        history.push("/users");
-    };
-
-    const editUser = () => {
+    const handleEditUser = () => {
         history.push(`/users/${userId}/edit`);
     };
 
     return (
         <div className="container">
             {user ? (
-                <div>
-                    <h1>{user.name}</h1>
-                    <h2>Профессия: {user.profession.name}</h2>
-
-                    <div>
-                        {user.qualities.map((badge) => (
-                            <Quality key={badge._id} {...badge} />
-                        ))}
+                <div className="row gutters-sm">
+                    <div className="col-md-4 mb-3">
+                        <UserCard
+                            id={user._id}
+                            name={user.name}
+                            profession={user.profession.name}
+                            rate={user.rate}
+                            onUserEdit={handleEditUser}
+                        />
+                        <QualitiesCard qualities={user.qualities} />
+                        <MeetingsCard meetingCount={user.completedMeetings} />
                     </div>
-                    <div>completedMeetings: {user.completedMeetings}</div>
-                    <div>Rate {user.rate}</div>
-
-                    <div className="mt-4 d-grid gap-2 d-sm-flex">
-                        <button
-                            onClick={handleMoveBack}
-                            className="btn btn-secondary"
-                        >
-                            Все пользователи
-                        </button>
-                        <button onClick={editUser} className="btn btn-primary">
-                            Редактировать
-                        </button>
+                    <div className="col-md-8">
+                        <CommentList userId={userId} />
                     </div>
                 </div>
             ) : (

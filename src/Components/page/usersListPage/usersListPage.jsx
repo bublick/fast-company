@@ -59,9 +59,9 @@ const UsersListPage = () => {
         };
 
         const handleType = ({ target }) => {
-            console.log(target.value);
+            // console.log(target.value);
             setSearchWord(target.value);
-            console.log(searchWord);
+            // console.log(searchWord);
         };
 
         let filteredUsers = selectedProf

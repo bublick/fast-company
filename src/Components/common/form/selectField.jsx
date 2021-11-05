@@ -7,6 +7,7 @@ const SelectField = ({
     onChange,
     defaultOption,
     options,
+    name,
     error
 }) => {
     const handleChange = ({ target }) => {
@@ -35,7 +36,7 @@ const SelectField = ({
                 <select
                     className={getInputClasses()}
                     id="validationCustom04"
-                    name="profession"
+                    name={name}
                     value={value}
                     onChange={handleChange}
                 >
@@ -49,9 +50,7 @@ const SelectField = ({
                             </option>
                         ))}
                 </select>
-                <div className="invalid-feedback">
-                    Please select a valid state
-                </div>
+                <div className="invalid-feedback">{error}</div>
             </div>
         </>
     );
@@ -61,6 +60,7 @@ SelectField.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
+    name: PropTypes.string,
     defaultOption: PropTypes.string,
     options: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     error: PropTypes.string
