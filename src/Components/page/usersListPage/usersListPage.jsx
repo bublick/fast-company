@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { paginate } from "../utils/paginate";
-import Pagination from "./pagination";
-import api from "../API";
-import GroupList from "./groupList";
-import SearchStatus from "./searchStatus";
-import SearchBar from "./searchBar";
-import UserTable from "./usersTable";
+import { paginate } from "../../../utils/paginate";
+import Pagination from "../../common/pagination";
+import api from "../../../API";
+import GroupList from "../../common/groupList";
+import SearchStatus from "../../ui/searchStatus";
+import SearchBar from "../../ui/searchBar";
+import UserTable from "../../ui/usersTable";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
-const Users = () => {
+const UsersListPage = () => {
     const [users, setUsers] = useState();
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -59,9 +59,9 @@ const Users = () => {
         };
 
         const handleType = ({ target }) => {
-            console.log(target.value);
+            // console.log(target.value);
             setSearchWord(target.value);
-            console.log(searchWord);
+            // console.log(searchWord);
         };
 
         let filteredUsers = selectedProf
@@ -139,9 +139,9 @@ const Users = () => {
     return "loading...";
 };
 
-Users.propTypes = {
+UsersListPage.propTypes = {
     users: PropTypes.array.isRequired,
     onRemove: PropTypes.func.isRequired,
     onToogleBookmark: PropTypes.func.isRequired
 };
-export default Users;
+export default UsersListPage;

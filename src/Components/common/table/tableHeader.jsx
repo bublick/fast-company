@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { iconCaretDown, iconCaretUp } from "../utils/icons";
+import { iconCaretDown, iconCaretUp } from "../../../utils/icons";
 
 let currentSortedByField = "name";
 

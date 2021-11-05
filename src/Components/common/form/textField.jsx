@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import PropTypes from "prop-types";
-import { iconEye, iconEyeSlash } from "../utils/icons";
+import { iconEye, iconEyeSlash } from "../../../utils/icons";
 
 const TextField = ({
     label,
@@ -11,6 +11,9 @@ const TextField = ({
     error,
     placeholder
 }) => {
+    const handleChange = ({ target }) => {
+        onChange({ name: [target.name], value: target.value });
+    };
     const [showPassword, setShowPassword] = useState(false);
 
     const getInputClasses = () => {
@@ -21,14 +24,14 @@ const TextField = ({
     };
     return (
         <div className="mb-4">
-            <label htmlFor={name}>{label}</label>
+            <label className="form-label">{label}</label>
             <div className="input-group has-validation">
                 <input
                     type={showPassword ? "text" : type}
                     id={name}
                     name={name}
                     value={value}
-                    onChange={onChange}
+                    onChange={handleChange}
                     placeholder={placeholder}
                     className={getInputClasses()}
                 />
@@ -57,6 +60,7 @@ TextField.propTypes = {
     name: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
+    handleChange: PropTypes.func,
     error: PropTypes.string,
     placeholder: PropTypes.string
 };

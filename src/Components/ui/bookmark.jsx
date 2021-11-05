@@ -1,5 +1,5 @@
 import React from "react";
-import { iconStar, iconStarFill } from "../utils/icons";
+import { iconStar, iconStarFill } from "../../utils/icons";
 import PropTypes from "prop-types";
 
 const Bookmark = ({ status, ...rest }) => {
