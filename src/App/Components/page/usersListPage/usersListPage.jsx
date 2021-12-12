@@ -8,10 +8,9 @@ import SearchBar from "../../ui/searchBar";
 import UserTable from "../../ui/usersTable";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import { useUser } from "../../../hooks/useUsers";
 
 const UsersListPage = () => {
-    const [users, setUsers] = useState();
-
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
@@ -19,9 +18,8 @@ const UsersListPage = () => {
     const [searchWord, setSearchWord] = useState("");
     const usersPerPage = 4;
 
-    useEffect(() => {
-        api.users.fetchAll().then((data) => setUsers(data));
-    }, []);
+    const { users } = useUser();
+    console.log(users);
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfessions(data));
@@ -31,20 +29,22 @@ const UsersListPage = () => {
         setCurrentPage(1);
     }, [selectedProf]);
 
-    if (users && professions) {
+    if (professions) {
         const handleUserRemove = (id) => {
-            setUsers(users.filter((user) => user._id !== id));
+            // setUsers(users.filter((user) => user._id !== id));
+            console.log("removed user");
         };
         const handleAddToFavorite = (id) => {
-            setUsers(
-                users.filter((user) => {
-                    if (user._id === id) {
-                        user.bookmark = !user.bookmark;
-                        return user;
-                    }
-                    return user;
-                })
-            );
+            // setUsers(
+            //     users.filter((user) => {
+            //         if (user._id === id) {
+            //             user.bookmark = !user.bookmark;
+            //             return user;
+            //         }
+            //         return user;
+            //     })
+            // );
+            console.log(`add ${id} to fav`);
         };
 
         const handleProfessionSelect = (item) => {
