@@ -5,11 +5,13 @@ import { useQualities } from "../../../hooks/useQualities";
 const Quality = ({ id }) => {
     const { getQuality } = useQualities();
 
-    console.log(getQuality(id));
-    // const { _id, color, name } = getQuality(id);
-    // console.log(_id, color, name);
+    const { _id, color, name } = getQuality(id);
 
-    return <hr />;
+    return (
+        <span className={"badge m-1 bg-" + color} key={_id}>
+            {name}
+        </span>
+    );
 };
 
 Quality.propTypes = {

@@ -41,7 +41,7 @@ export const QualitiesProvider = ({ children }) => {
                 console.log("I need", qual);
             }
         });
-        // return qualities.find((q) => q._id === id);
+        return qualities.find((q) => q._id === id);
     };
 
     function errorCatcher(error) {
