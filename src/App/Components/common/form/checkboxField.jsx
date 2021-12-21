@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const CheckboxField = ({ name, value, onChange, children, error }) => {
+const CheckBoxField = ({ name, value, onChange, children, error }) => {
     const handleChange = () => {
         onChange({ name: name, value: !value });
     };
@@ -15,18 +15,17 @@ const CheckboxField = ({ name, value, onChange, children, error }) => {
                 type="checkbox"
                 value=""
                 id={name}
-                checked={value}
                 onChange={handleChange}
+                checked={value}
             />
-            <label className="form-check-label" htmlFor={name}>
+            <label className="form-check-label " htmlFor={name}>
                 {children}
             </label>
             {error && <div className="invalid-feedback">{error}</div>}
         </div>
     );
 };
-
-CheckboxField.propTypes = {
+CheckBoxField.propTypes = {
     name: PropTypes.string,
     value: PropTypes.bool,
     onChange: PropTypes.func,
@@ -36,4 +35,5 @@ CheckboxField.propTypes = {
     ]),
     error: PropTypes.string
 };
-export default CheckboxField;
+
+export default CheckBoxField;

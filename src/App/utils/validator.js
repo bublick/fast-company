@@ -3,15 +3,16 @@ export function validator(data, config) {
     function validate(validateMethod, data, config) {
         let statusValidate;
         switch (validateMethod) {
-            case "isRequired":
+            case "isRequired": {
                 if (typeof data === "boolean") {
                     statusValidate = !data;
-                } else if (typeof data === "string") {
+                } else {
                     statusValidate = data.trim() === "";
                 }
                 break;
+            }
             case "isEmail": {
-                const emailRegExp = /\S+@\S+\.\S+$/g;
+                const emailRegExp = /^\S+@\S+\.\S+$/g;
                 statusValidate = !emailRegExp.test(data);
                 break;
             }
@@ -21,8 +22,8 @@ export function validator(data, config) {
                 break;
             }
             case "isContainDigit": {
-                const digitRegExt = /\d+/g;
-                statusValidate = !digitRegExt.test(data);
+                const digitRegExp = /\d+/g;
+                statusValidate = !digitRegExp.test(data);
                 break;
             }
             case "min": {
@@ -46,6 +47,5 @@ export function validator(data, config) {
             }
         }
     }
-
     return errors;
 }

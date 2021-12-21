@@ -1,21 +1,23 @@
 import React from "react";
+import Qualities from "./qualities";
 import PropTypes from "prop-types";
 
-const MeetingsCard = ({ meetingCount }) => {
+const QualitiesCard = ({ data }) => {
     return (
         <div className="card mb-3">
             <div className="card-body d-flex flex-column justify-content-center text-center">
                 <h5 className="card-title">
-                    <span>Completed meetings</span>
+                    <span>Qualities</span>
                 </h5>
-
-                <h1 className="display-1">{meetingCount}</h1>
+                <p className="card-text">
+                    <Qualities qualities={data} />
+                </p>
             </div>
         </div>
     );
 };
-
-MeetingsCard.propTypes = {
-    meetingCount: PropTypes.number
+QualitiesCard.propTypes = {
+    data: PropTypes.array
 };
-export default MeetingsCard;
+
+export default QualitiesCard;

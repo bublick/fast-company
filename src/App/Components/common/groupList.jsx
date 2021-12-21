@@ -8,37 +8,52 @@ const GroupList = ({
     onItemSelect,
     selectedItem
 }) => {
-    return (
-        <ul className="list-group">
-            {(typeof items === "object" ? Object.values(items) : items).map(
-                (item) => (
+    if (!Array.isArray(items)) {
+        return (
+            <ul className="list-group">
+                {Object.keys(items).map((item) => (
                     <li
-                        key={item[valueProperty]}
+                        key={items[item][valueProperty]}
                         className={
                             "list-group-item" +
-                            (item === selectedItem ? " active" : "")
+                            (items[item] === selectedItem ? " active" : "")
                         }
-                        onClick={() => onItemSelect(item)}
+                        onClick={() => onItemSelect(items[item])}
                         role="button"
                     >
-                        {item[contentProperty]}
+                        {items[item][contentProperty]}
                     </li>
-                )
-            )}
+                ))}
+            </ul>
+        );
+    }
+    return (
+        <ul className="list-group">
+            {items.map((item) => (
+                <li
+                    key={item[valueProperty]}
+                    className={
+                        "list-group-item" +
+                        (item === selectedItem ? " active" : "")
+                    }
+                    onClick={() => onItemSelect(item)}
+                    role="button"
+                >
+                    {item[contentProperty]}
+                </li>
+            ))}
         </ul>
     );
 };
-
 GroupList.defaultProps = {
     valueProperty: "_id",
     contentProperty: "name"
 };
-
 GroupList.propTypes = {
     items: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    onItemSelect: PropTypes.func.isRequired,
     valueProperty: PropTypes.string.isRequired,
     contentProperty: PropTypes.string.isRequired,
+    onItemSelect: PropTypes.func,
     selectedItem: PropTypes.object
 };
 

@@ -1,61 +1,39 @@
-import { React, useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import api from "../../../API";
-import UserCard from "./cards/userCard";
-import QualitiesCard from "./cards/qualitiesCard";
-import MeetingsCard from "./cards/meetingsCard";
-import CommentList from "../../common/comments/commentList";
+import api from "../../../api";
+import UserCard from "../../ui/userCard";
+import QualitiesCard from "../../ui/qualitiesCard";
+import MeetingsCard from "../../ui/meetingsCard";
+import Comments from "../../ui/comments";
 
-const User = ({ userId }) => {
-    const history = useHistory();
-
+const UserPage = ({ userId }) => {
     const [user, setUser] = useState();
 
     useEffect(() => {
-        api.users.getById(userId).then((data) => {
-            setUser(data);
-        });
-    });
-
-    // const handleMoveBack = () => {
-    //     history.push("/users");
-    // };
-
-    const handleEditUser = () => {
-        history.push(`/users/${userId}/edit`);
-    };
-
-    return (
-        <div className="container">
-            {user ? (
+        api.users.getById(userId).then((data) => setUser(data));
+    }, []);
+    if (user) {
+        return (
+            <div className="container">
                 <div className="row gutters-sm">
                     <div className="col-md-4 mb-3">
-                        <UserCard
-                            id={user._id}
-                            name={user.name}
-                            profession={user.profession.name}
-                            rate={user.rate}
-                            onUserEdit={handleEditUser}
-                        />
-                        <QualitiesCard qualities={user.qualities} />
-                        <MeetingsCard meetingCount={user.completedMeetings} />
+                        <UserCard user={user} />
+                        <QualitiesCard data={user.qualities} />
+                        <MeetingsCard value={user.completedMeetings} />
                     </div>
                     <div className="col-md-8">
-                        <CommentList userId={userId} />
+                        <Comments />
                     </div>
                 </div>
-            ) : (
-                <h2>Loading</h2>
-            )}
-        </div>
-    );
+            </div>
+        );
+    } else {
+        return <h1>Loading</h1>;
+    }
 };
 
-User.propTypes = {
-    userId: PropTypes.string.isRequired,
-    onRemove: PropTypes.func.isRequired,
-    onToogleBookmark: PropTypes.func.isRequired
+UserPage.propTypes = {
+    userId: PropTypes.string.isRequired
 };
 
-export default User;
+export default UserPage;
