@@ -7,14 +7,12 @@ const SelectField = ({
     onChange,
     defaultOption,
     options,
-    name,
-    error
+    error,
+    name
 }) => {
     const handleChange = ({ target }) => {
-        const findObj = optionsArray.find((p) => p.value === target.value);
-        onChange({ name: target.name, value: findObj || target.value });
+        onChange({ name: target.name, value: target.value });
     };
-
     const getInputClasses = () => {
         return "form-select" + (error ? " is-invalid" : "");
     };
@@ -28,42 +26,39 @@ const SelectField = ({
             : options;
 
     return (
-        <>
-            <div className="mb-4">
-                <label htmlFor="validationCustom04" className="form-label">
-                    {label}
-                </label>
-                <select
-                    className={getInputClasses()}
-                    id="validationCustom04"
-                    name={name}
-                    value={value}
-                    onChange={handleChange}
-                >
-                    <option disabled value="">
-                        {defaultOption}
-                    </option>
-                    {optionsArray &&
-                        optionsArray.map((option) => (
-                            <option value={option.value} key={option.value}>
-                                {option.name}
-                            </option>
-                        ))}
-                </select>
-                <div className="invalid-feedback">{error}</div>
-            </div>
-        </>
+        <div className="mb-4">
+            <label htmlFor="validationCustom04" className="form-label">
+                {label}
+            </label>
+            <select
+                className={getInputClasses()}
+                id="validationCustom04"
+                name={name}
+                value={value}
+                onChange={handleChange}
+            >
+                <option disabled value="">
+                    {defaultOption}
+                </option>
+                {optionsArray &&
+                    optionsArray.map((option) => (
+                        <option value={option.value} key={option.value}>
+                            {option.label}
+                        </option>
+                    ))}
+            </select>
+            {error && <div className="invalid-feedback">{error}</div>}
+        </div>
     );
 };
-
 SelectField.propTypes = {
+    defaultOption: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    name: PropTypes.string,
-    defaultOption: PropTypes.string,
-    options: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-    error: PropTypes.string
+    error: PropTypes.string,
+    options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    name: PropTypes.string
 };
 
 export default SelectField;
