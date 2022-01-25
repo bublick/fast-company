@@ -22,9 +22,9 @@ export const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
-    const [currentUser, setUser] = useState();
+    const [currentUser, setCurrentUser] = useState();
     const [error, setError] = useState(null);
-    const [isLoading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const history = useHistory();
 
     async function signIn({ email, password }) {
@@ -95,32 +95,57 @@ const AuthProvider = ({ children }) => {
     async function createUser(data) {
         try {
             const { content } = await userService.create(data);
-            setUser(content);
+            setCurrentUser(content);
         } catch (error) {
             errorCatcher(error);
         }
     }
-    async function getUserData() {
+
+    async function updateUserData(data) {
         try {
-            const { content } = await userService.getCurrentUser();
-            setUser(content);
+            const { content } = await userService.update(data);
+            setCurrentUser(content);
         } catch (error) {
             errorCatcher(error);
         } finally {
-            setLoading(false);
+            setIsLoading(false);
+        }
+    }
+
+    // async function updateUser(id, data) {
+    //     try {
+    //         const postData = {
+    //             name: data.name,
+    //             email: data.email,
+    //             password: data.password,
+    //             profession: data.profession,
+    //             sex: data.sex,
+    //             qualities: data.qualities
+    //         };
+    //     } catch (error) {}
+    // }
+    async function getUserData() {
+        try {
+            const { content } = await userService.getCurrentUser();
+            setCurrentUser(content);
+        } catch (error) {
+            errorCatcher(error);
+        } finally {
+            setIsLoading(false);
         }
     }
     useEffect(() => {
         if (localStorageService.getAccessToken()) {
             getUserData();
         } else {
-            setLoading(false);
+            setIsLoading(false);
         }
     }, []);
 
     function logOut() {
+        console.log("logout start");
         localStorageService.removeAuthData();
-        setUser(null);
+        setCurrentUser(null);
         history.push("/");
     }
 
@@ -136,7 +161,9 @@ const AuthProvider = ({ children }) => {
     }, [error]);
 
     return (
-        <AuthContext.Provider value={{ signUp, signIn, currentUser, logOut }}>
+        <AuthContext.Provider
+            value={{ signUp, signIn, currentUser, logOut, updateUserData }}
+        >
             {!isLoading ? children : "Loading..."}
         </AuthContext.Provider>
     );
