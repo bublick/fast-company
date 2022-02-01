@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { validator } from "../../utils/validator";
+import { validator } from "../../utils/ validator";
 import TextField from "../common/form/textField";
-
 import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radio.Field";
 import MultiSelectField from "../common/form/multiSelectField";
 import CheckBoxField from "../common/form/checkBoxField";
+// import { useProfessions } from "../../hooks/useProfession";
 
-import { useQualities } from "../../hooks/useQualities";
-import { useProfessions } from "../../hooks/useProfession";
-import { useAuth } from "../../hooks/useAuth";
-import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getQualities } from "../../store/qualities";
+import { getProfessions } from "../../store/professions";
+import { signUp } from "../../store/users";
 
 const RegisterForm = () => {
-    const history = useHistory();
+    const dispatch = useDispatch();
+
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -23,19 +24,18 @@ const RegisterForm = () => {
         qualities: [],
         licence: false
     });
-    const { signUp } = useAuth();
-    const { qualities } = useQualities();
+
+    const qualities = useSelector(getQualities());
     const qualitiesList = qualities.map((q) => ({
         label: q.name,
         value: q._id
     }));
-
-    const { professions } = useProfessions();
-    const professionList = professions.map((p) => ({
+    // const { professions } = useProfessions();
+    const professions = useSelector(getProfessions());
+    const professionsList = professions.map((p) => ({
         label: p.name,
         value: p._id
     }));
-
     const [errors, setErrors] = useState({});
 
     const handleChange = (target) => {
@@ -50,16 +50,16 @@ const RegisterForm = () => {
                 message: "Электронная почта обязательна для заполнения"
             },
             isEmail: {
-                message: "Имя введен некорректно",
-                value: 2
+                message: "Email введен некорректно"
             }
         },
         name: {
             isRequired: {
-                message: "Имя обязательна для заполнения"
+                message: "Имя обязательно для заполнения"
             },
             min: {
-                message: "Имя должно состоять минимум из 2х символов"
+                message: "Имя должено состаять миниму из 3 символов",
+                value: 3
             }
         },
         password: {
@@ -99,7 +99,7 @@ const RegisterForm = () => {
     };
     const isValid = Object.keys(errors).length === 0;
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
@@ -107,13 +107,7 @@ const RegisterForm = () => {
             ...data,
             qualities: data.qualities.map((q) => q.value)
         };
-
-        try {
-            await signUp(newData);
-            history.push("/");
-        } catch (error) {
-            setErrors(error);
-        }
+        dispatch(signUp(newData));
     };
 
     return (
@@ -144,7 +138,7 @@ const RegisterForm = () => {
                 label="Выбери свою профессию"
                 defaultOption="Choose..."
                 name="profession"
-                options={professionList}
+                options={professionsList}
                 onChange={handleChange}
                 value={data.profession}
                 error={errors.profession}
