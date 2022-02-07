@@ -10,6 +10,8 @@
 
 # production
 /build
+/server/config/default.json
+*/.env.development
 
 # misc
 .DS_Store
